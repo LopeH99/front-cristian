@@ -3,6 +3,8 @@ import PageContainer from "../components/PageContainer"
 import Table from "../components/Table"
 import axios from "axios";
 import useLogin from "../hooks/useLogin";
+import { Button } from "react-bootstrap";
+import moment from "moment";
 
 const Usuarios = () => {
     const [usuarios, setUsuarios] = useState()
@@ -21,12 +23,16 @@ const Usuarios = () => {
           selector: row => row.sexo,
       },
       {
-          name: 'Fecha de nacimiento',
-          selector: row => row.fechaNacimiento,
-      },
+        name: 'Fecha de nacimiento',
+      selector: row => (moment(row.fechaNacimiento).format('DD-MM-YYYY')),
+    },
       {
           name: 'Cargo',
-          selector: row => row.cargo,
+          selector: row => row.rol,
+      },
+      {
+          name: 'Acciones',
+          selector: row => (<><Button variant="warning">Editar</Button><Button variant="danger" className="mx-2">Eliminar</Button></>),
       }
   ];
 
@@ -46,7 +52,7 @@ const Usuarios = () => {
     
         obtenerUsuarios();
       }, []);
-
+console.log(usuarios)
   return (
     <PageContainer title={"Usuarios"} btnAdd={'/crear-usuario'}>
           <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>          

@@ -1,62 +1,57 @@
-import axios from "axios";
+import { useEffect, useState } from "react";
 import PageContainer from "../components/PageContainer"
 import Table from "../components/Table"
+import axios from "axios";
 import useLogin from "../hooks/useLogin";
-import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import moment from "moment";
 
 const Licencias = () => {
+    const [usuarios, setUsuarios] = useState()
     const { auth } = useLogin()
-    const [licencias, setLicencias] = useState()
+    const columns = [
+      {
+          name: 'Nombre y apellido',
+          selector: row => row.nombre + " " + row.apellido,
+      },
+      {
+        name: 'DNI',
+        selector: row => row.dni,
+      },
+      {
+        name: 'Fecha de nacimiento',
+      selector: row => (moment(row.fechaNacimiento).format('DD-MM-YYYY')),
+    },
+      {
+          name: 'Cargo',
+          selector: row => row.rol,
+      },
+      {
+          name: 'Acciones',
+          selector: row => (<><Button variant="success">Autorizar</Button><Button variant="warning" className="mx-2">No autorizar</Button></>),
+      }
+  ];
 
-  const columns = [
-    {
-        name: 'Nombre y apellido',
-        selector: row => row.solicitante.nombre + " " + row.solicitante.apellido,
-    },
-    {
-        name: 'Articulo',
-        selector: row => row.articulo,
-    },
-    {
-        name: 'Dias',
-        selector: row => row.dias,
-    },
-];
-
-const data = [
-    {
-        id: 1,
-        name: 'Beetlejuice',
-        dias: '1988',
-    },
-    {
-        id: 2,
-        name: 'Ghostbusters',
-        dias: '1984',
-    },
-    ]
+    useEffect(() => {
+        const obtenerUsuarios = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/usuarios', {
+              headers: {
+                'Authorization': `${auth.token}`
+              }
+            });
+            setUsuarios(response.data.usuarios);
+          } catch (error) {
+            console.error(`Hubo un error al obtener los usuarios: ${error}`);
+          }
+        };
     
-useEffect(() => {
-    const obtenerUsuarios = async () => {
-        try {
-        const response = await axios.get('http://localhost:3000/licencias', {
-            headers: {
-            'Authorization': `${auth.token}`
-            }
-        });
-        setLicencias(response.data.licencias);
-        } catch (error) {
-        console.error(`Hubo un error al obtener las licencias: ${error}`);
-        }
-    };
-
-    obtenerUsuarios();
-}, []);
-console.log(licencias)
-
+        obtenerUsuarios();
+      }, []);
+console.log(usuarios)
   return (
-    <PageContainer title={"Licencias"} btnAdd={"/crear-licencia"}>
-          <Table columns={columns} data={data} placeholder={"Filtrar por nombre"}/>          
+    <PageContainer title={"Licencias"} btnAdd={'/crear-licencia'}>
+          <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>          
     </PageContainer>
   )
 }

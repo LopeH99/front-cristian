@@ -32,7 +32,7 @@ const Novedades = () => {
         <Row>
           <Col md={8} className="offset-lg-2">
             <Row>
-              {/* {novedades?.map(novedad => (
+              {novedades?.map(novedad => (
               <Col lg={12} className="shadow rounded-4 my-3 border" key={novedad.id}>
                 <Row className="p-2">
                     <Col lg={5}><h3>{novedad.titulo}</h3></Col>
@@ -41,16 +41,8 @@ const Novedades = () => {
                     <Col lg={12}><h4>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</h4></Col>
                 </Row>
               </Col>
+              ))}
 
-              ))} */}
-              <Col lg={12} className="shadow rounded-4 my-3 border">
-                <Row className="p-2">
-                    <Col lg={5}><h3>¿Que debemos hacer frente un accidente laboral</h3></Col>
-                    <Col lg={5} className="offset-lg-2 text-lg-end"><h3>10-11-2023</h3></Col>
-                    {/* <Col lg={12} className="w-100 h-100 bg-primary"><img src={novedad.img} /></Col> */}
-                    <Col lg={12}><h4>Si enfrentas una situacion de emergencia o riesgo de vida</h4></Col>
-                </Row>
-              </Col>
             </Row>
           </Col>
         </Row>

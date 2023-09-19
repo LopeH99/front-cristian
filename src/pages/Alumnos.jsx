@@ -3,6 +3,8 @@ import PageContainer from "../components/PageContainer"
 import Table from "../components/Table";
 import { useEffect, useState } from "react";
 import useLogin from "../hooks/useLogin";
+import { Button } from "react-bootstrap";
+import moment from "moment";
 
 const Alumnos = () => {
     const [alumnos, setAlumnos] = useState()
@@ -23,12 +25,16 @@ const Alumnos = () => {
         },
         {
             name: 'Fecha de nacimiento',
-            selector: row => row.fechaNacimiento,
+          selector: row => (moment(row.fechaNacimiento).format('DD-MM-YYYY')),
         },
         {
-            name: 'Cargo',
-            selector: row => row.cargo,
-        }
+          name: 'Cargo',
+          selector: row => row.rol,
+      },
+      {
+          name: 'Acciones',
+          selector: row => (<><Button variant="warning">Editar</Button><Button variant="danger" className="mx-2">Eliminar</Button></>),
+      }
     ];
 
 
@@ -36,7 +42,7 @@ const Alumnos = () => {
     useEffect(() => {
         const obtenerUsuarios = async () => {
           try {
-            const response = await axios.get('http://localhost:3000/usuarios', {
+            const response = await axios.get('http://localhost:3000/usuarios?rol=ALUMNO', {
               headers: {
                 'Authorization': `${auth.token}`
               }

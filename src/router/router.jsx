@@ -15,6 +15,8 @@ import CrearLicencia from '../pages/CrearLicencia';
 import RegistrarSemana from '../pages/RegistrarSemana';
 import Usuarios from '../pages/Usuarios';
 import CrearUsuario from '../pages/CrearUsuario';
+import CrearSugerencia from '../pages/CrearSugerencia';
+import CrearHorario from '../pages/CrearHorario';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +44,10 @@ const router = createBrowserRouter([
       element: <Sugerencias />,
     },
     {
+      path: "/crear-sugerencia",
+      element: <CrearSugerencia />,
+    },
+    {
       path: "/eventos",
       element: <Eventos />,
     },
@@ -60,6 +66,10 @@ const router = createBrowserRouter([
     {
       path: "/horarios",
       element: <Horarios />,
+    },
+    {
+      path: "/crear-horario",
+      element: <CrearHorario />,
     },
     {
       path: "/licencias",

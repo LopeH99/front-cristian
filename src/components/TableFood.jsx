@@ -5,6 +5,17 @@ import { useNavigate } from "react-router-dom"
 const TableFood = () => {
     const navigate = useNavigate()
     const [week, setWeek] = useState()
+
+    const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+    const menus = ['Pollo a la plancha', 'Pasta con salsa de tomate', 'Ensalada César', 'Sopa de verduras', 'Pizza Margherita'];
+    const ingredients = [
+        'Pollo, sal, pimienta',
+        'Pasta, tomates, cebolla, ajo',
+        'Lechuga, crutones, queso parmesano, aderezo César',
+        'Zanahorias, apio, cebolla, caldo de verduras',
+        'Masa de pizza, salsa de tomate, mozzarella'
+    ];
+
   return (
     <Container fluid>
         <Row className="mt-3">
@@ -32,42 +43,17 @@ const TableFood = () => {
             <Col md={12}>
                 <Row>
                     <Col md={12}><h3>Periodo de la semana</h3></Col>
-                      
-                    <Col md={12} className="card p-3 my-3">
-                        <Row>
-                            <Col md={12}>Dia:</Col>  
-                            <Col md={12}>Menú:</Col>  
-                            <Col md={12}>Ingredientes:</Col>  
-                        </Row>
-                    </Col>
-                    <Col md={12} className="card p-3 my-3">
-                        <Row>
-                            <Col md={12}>Dia:</Col>  
-                            <Col md={12}>Menú:</Col>  
-                            <Col md={12}>Ingredientes:</Col>  
-                        </Row>
-                    </Col>
-                    <Col md={12} className="card p-3 my-3">
-                        <Row>
-                            <Col md={12}>Dia:</Col>  
-                            <Col md={12}>Menú:</Col>  
-                            <Col md={12}>Ingredientes:</Col>  
-                        </Row>
-                    </Col>
-                    <Col md={12} className="card p-3 my-3">
-                        <Row>
-                            <Col md={12}>Dia:</Col>  
-                            <Col md={12}>Menú:</Col>  
-                            <Col md={12}>Ingredientes:</Col>  
-                        </Row>
-                    </Col>
-                    <Col md={12} className="card p-3 my-3">
-                        <Row>
-                            <Col md={12}>Dia:</Col>  
-                            <Col md={12}>Menú:</Col>  
-                            <Col md={12}>Ingredientes:</Col>  
-                        </Row>
-                    </Col>
+
+                    {days.map((day, index) => (
+                        <Col md={12} className="card p-3 my-3" key={index}>
+                            <Row>
+                                <Col md={12}>Dia: {day}</Col>  
+                                <Col md={12}>Menú: {menus[index]}</Col>  
+                                <Col md={12}>Ingredientes: {ingredients[index]}</Col>  
+                            </Row>
+                        </Col>
+                    ))}
+                    
                 </Row>
             </Col>
         </Row>  

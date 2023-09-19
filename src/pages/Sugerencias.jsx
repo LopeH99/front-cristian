@@ -3,6 +3,7 @@ import PageContainer from "../components/PageContainer"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useLogin from "../hooks/useLogin";
+import moment from "moment";
 
 const Sugerencias = () => {
   const [sugerencias, setSugerencias] = useState()
@@ -25,9 +26,11 @@ const Sugerencias = () => {
 
     obtenerSugerencias();
   }, []);
+
   console.log(sugerencias)
+
   return (
-    <PageContainer title={"Sugerencias"}>
+    <PageContainer title={"Sugerencias"} btnAdd={'/crear-sugerencia'}>
       <Container className="py-3">
         <Row>
           {sugerencias?.map(sugerencia => (
@@ -35,7 +38,15 @@ const Sugerencias = () => {
             <Col md={4} className="my-2" key={sugerencia.id}>
               <Card>
                 <Card.Header>
+                  <Row>
+                    <Col>
+                  <p>{sugerencia.anonima ? "Anonima" : `${sugerencia.usuario.apellido} ${sugerencia.usuario.nombre}`}</p>
                   <h2>{sugerencia.tipo}</h2>
+                    </Col>
+                    <Col className="d-flex justify-content-end">
+                      {moment(sugerencia.created_at).format('DD-MM-YYYY')}
+                    </Col>
+                  </Row>
                 </Card.Header>
                 <Card.Body>
                   <p>{sugerencia.texo}</p>

@@ -27,6 +27,9 @@ const FormularioUsuario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    usuario.rol = 'PROFESOR';
+
     try {
         const response = await axios.post('http://localhost:3000/usuarios', usuario, {
             headers: {
@@ -68,6 +71,16 @@ const FormularioUsuario = () => {
       <Form.Group controlId="fechaNacimiento" className='mt-3'>
         <Form.Label>Fecha de Nacimiento</Form.Label>
         <Form.Control type="date" name="fechaNacimiento" onChange={handleChange} required />
+      </Form.Group>
+
+      <Form.Group controlId="email" className='mt-3'>
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" name="email" onChange={handleChange} required />
+      </Form.Group>
+
+      <Form.Group controlId="password" className='mt-3'>
+        <Form.Label>Contraseña</Form.Label>
+        <Form.Control type="password" name="password" onChange={handleChange} required />
       </Form.Group>
 
       <Form.Group controlId="cargo" className='mt-3'>
