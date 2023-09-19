@@ -87,6 +87,7 @@ const FormularioUsuario = () => {
         <Form.Label>Cargo</Form.Label>
         <Form.Control as="select" name="cargo" onChange={handleChange} required>
           <option value="">Selecciona el cargo</option>
+          <option value="MAESTRO_DE_GRADO">Alumno</option>
           <option value="MAESTRO_DE_GRADO">Maestro de Grado</option>
           <option value="MAESTRO_A_CARGO_DE_DIRECCION">Maestro a Cargo de Dirección</option>
           <option value="MAESTRO_ESPECIAL">Maestro Especial</option>

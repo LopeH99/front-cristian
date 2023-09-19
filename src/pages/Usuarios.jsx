@@ -52,7 +52,7 @@ const Usuarios = () => {
     
         obtenerUsuarios();
       }, []);
-console.log(usuarios)
+
   return (
     <PageContainer title={"Usuarios"} btnAdd={'/crear-usuario'}>
           <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>          

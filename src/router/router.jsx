@@ -17,6 +17,8 @@ import Usuarios from '../pages/Usuarios';
 import CrearUsuario from '../pages/CrearUsuario';
 import CrearSugerencia from '../pages/CrearSugerencia';
 import CrearHorario from '../pages/CrearHorario';
+import Personal from '../pages/Personal';
+import CrearPersonal from '../pages/CrearPersonal';
 
 const router = createBrowserRouter([
     {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
     {
       path: "/usuarios",
       element: <Usuarios />,
+    },
+    {
+      path: "/personal",
+      element: <Personal />,
+    },
+    {
+      path: "/crear-personal",
+      element: <CrearPersonal />,
     },
     {
       path: "/crear-usuario",

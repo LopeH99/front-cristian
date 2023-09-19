@@ -23,6 +23,9 @@ const Navegation = () => {
               <NavLink className='fs-4 my-2' href="/usuarios">USUARIOS</NavLink>
             </NavItem>
             <NavItem>
+              <NavLink className='fs-4 my-2' href="/personal">PERSONAL</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink className='fs-4 my-2' href="/sugerencias">SUGERENCIAS</NavLink>
             </NavItem>
             <NavItem>
