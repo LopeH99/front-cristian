@@ -66,6 +66,10 @@ const router = createBrowserRouter([
       element: <CrearEvento />,
     },
     {
+      path: "/crear-evento/:id",
+      element: <CrearEvento />,
+    },
+    {
       path: "/incidencias",
       element: <Incidencias />,
     },

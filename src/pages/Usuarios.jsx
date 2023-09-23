@@ -49,7 +49,7 @@ const Usuarios = () => {
             console.error(`Hubo un error al obtener los usuarios: ${error}`);
           }
         };
-    
+
         obtenerUsuarios();
       }, []);
 
