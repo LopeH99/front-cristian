@@ -6,11 +6,18 @@ import useLogin from "../hooks/useLogin";
 import moment from "moment";
 import DropdownBootstrap from "../components/DropdownBootstrap";
 import { useNavigate } from "react-router-dom";
+import ToastBootstrap from "../components/Toasts";
 
 const Novedades = () => {
   const { auth } = useLogin()
   const [novedades, setNovedades] = useState([]);
   const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState({
+    title: "Novedad",
+    message: "Se elimino la novedad correctamente",
+    color:"danger"
+  });
 
   const getNovedades = async () => {
   try {
@@ -33,12 +40,17 @@ const Novedades = () => {
 
 const onDelete = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:3000/eventos/${id}`, {
+    await axios.delete(`http://localhost:3000/eventos/${id}`, {
       headers: {
         'Authorization': `${auth.token}`
       }
     });
-    console.log(response);
+    setToastMessage({
+      title: "Novedad",
+      message: "Se elimino la novedad correctamente",
+      color:"danger"
+    })
+    setShowToast(true)
     // Actualizar la lista de novedades después de eliminar
     getNovedades();
   } catch (error) {
@@ -51,6 +63,8 @@ const onDelete = async (id) => {
   }, []);
 
   return (
+    <>
+    <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
     <PageContainer title={"Novedades"}>
       <Container>
         <Row>
@@ -73,7 +87,9 @@ const onDelete = async (id) => {
           </Col>
         </Row>
       </Container>
-    </PageContainer>
+      </PageContainer>
+    </>
+      
   )
 }
 

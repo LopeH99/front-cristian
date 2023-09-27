@@ -19,6 +19,7 @@ import CrearSugerencia from '../pages/CrearSugerencia';
 import CrearHorario from '../pages/CrearHorario';
 import Personal from '../pages/Personal';
 import CrearPersonal from '../pages/CrearPersonal';
+import CrearProfesor from '../pages/CrearProfesor';
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
     {
       path: "/crear-personal",
       element: <CrearPersonal />,
+    },
+    {
+      path: "/crear-profesor",
+      element: <CrearProfesor />,
     },
     {
       path: "/crear-usuario",

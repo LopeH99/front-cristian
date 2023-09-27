@@ -1,21 +1,22 @@
-import React from 'react'
-import { Toast } from 'react-bootstrap'
+import { Toast, ToastContainer } from 'react-bootstrap'
 
-const Toasts = ({show, toggleShow}) => {
+const ToastBootstrap = ({show, toggleShow, toastMessage}) => {
   return (
-    <Toast show={show} onClose={toggleShow}>
-        <Toast.Header>
-        <img
-            src="holder.js/20x20?text=%20"
-            className="rounded me-2"
-            alt=""
-        />
-        <strong className="me-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
-        </Toast.Header>
-        <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-    </Toast>
+    <ToastContainer position='top-end'>
+      <Toast show={show} onClose={() => toggleShow(false)} bg={toastMessage.color} className='m-5' delay={3000} autohide>
+      <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+          <strong className="me-auto">{toastMessage.title}</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+      <Toast.Body>{toastMessage.message}</Toast.Body>
+      </Toast>
+      </ToastContainer>
   )
 }
 
-export default Toasts
+export default ToastBootstrap
