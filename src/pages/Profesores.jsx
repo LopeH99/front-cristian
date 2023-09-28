@@ -73,7 +73,7 @@ const Profesores = () => {
       {
           name: 'Acciones',
           selector: row => (<>
-            <Button variant="warning" onClick={() => navigate('/crear-usuario')}>E</Button>
+            <Button variant="warning" onClick={() => navigate(`/crear-profesor/${row.id}`)}>E</Button>
             <Button variant="danger" className="mx-2" onClick={() => eliminarUsuario(row.id)}>X</Button>
         </>),
       }

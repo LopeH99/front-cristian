@@ -32,7 +32,7 @@ const CrearSugerencia = () => {
   };
 
     return (
-      <PageContainer title={"Crear Sugerencia"}>
+      <PageContainer title={"Crear Sugerencia"} btnBack={'/sugerencias'}>
         <Form onSubmit={handleSubmit}>
         <Form.Group controlId="suggestionText" className='mt-3'>
             <Form.Label>Texto de la sugerencia</Form.Label>

@@ -80,7 +80,7 @@ const enviarFormulario = async (e) => {
 
 
   return (
-    <PageContainer title={"Crear evento"}>
+    <PageContainer title={"Crear evento"} btnBack={'/eventos'}>
     <Form onSubmit={enviarFormulario}>
       <Form.Group className='mt-4' controlId="formFile">
         <Form.Label>Archivo</Form.Label>

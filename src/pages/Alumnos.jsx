@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import useLogin from "../hooks/useLogin";
 import { Button } from "react-bootstrap";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const Alumnos = () => {
   const [alumnos, setAlumnos] = useState()
   const { auth } = useLogin()
+  const navigate = useNavigate()
   
   const eliminarUsuario = async (id) => {
     try {
@@ -50,7 +52,7 @@ const Alumnos = () => {
     },
       {
         name: 'Telefono tutor',
-        selector: row => row.telefono,
+        selector: row => row.telefonoTutor,
     },
       {
         name: 'Observaciones',
@@ -63,16 +65,14 @@ const Alumnos = () => {
     {
         name: 'Acciones',
         selector: row => (<>
-          <Button variant="warning" onClick={() => navigate('/crear-usuario')}>E</Button>
+          <Button variant="warning" onClick={() => navigate(`/crear-alumno/${row.id}`)}>E</Button>
           <Button variant="danger" className="mx-2" onClick={() => eliminarUsuario(row.id)}>X</Button>
       </>),
     }
   ];
 
-
-    
     useEffect(() => {
-        const obtenerUsuarios = async () => {
+        const obtenerAlumnos = async () => {
           try {
             const response = await axios.get('http://localhost:3000/usuarios?rol=ALUMNO', {
               headers: {
@@ -85,12 +85,13 @@ const Alumnos = () => {
           }
         };
     
-        obtenerUsuarios();
+        obtenerAlumnos();
       }, []);
+      
+      console.log(alumnos)
     
-    console.log(alumnos)
   return (
-        <PageContainer title={'Alumnos'} btnAdd={'/crear-usuario'}>
+        <PageContainer title={'Alumnos'} btnAdd={'/crear-alumno'}>
           <Table columns={columns} data={alumnos} placeholder={"Filtrar por nombre"}/>
         </PageContainer>
   )

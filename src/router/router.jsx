@@ -20,6 +20,7 @@ import CrearHorario from '../pages/CrearHorario';
 import Personal from '../pages/Personal';
 import CrearPersonal from '../pages/CrearPersonal';
 import CrearProfesor from '../pages/CrearProfesor';
+import CrearAlumno from '../pages/CrearAlumno';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     {
       path: "/alumnos",
       element: <Alumnos />,
+    },
+    {
+      path: "/crear-alumno",
+      element: <CrearAlumno />,
     },
     {
       path: "/profesores",

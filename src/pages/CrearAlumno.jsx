@@ -54,7 +54,7 @@ const CrearAlumno = () => {
   };
 
     return (
-      <PageContainer title={"Agregar un nuevo profesor"}>
+      <PageContainer title={"Agregar un nuevo alumno"} btnBack={'/alumnos'}>
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className='mt-3'>
         <Form.Label>Nombre</Form.Label>
@@ -84,28 +84,24 @@ const CrearAlumno = () => {
         <Form.Label>Fecha de Nacimiento</Form.Label>
         <Form.Control type="date" name="fechaNacimiento" onChange={handleChange} required />
           </Form.Group>
-          
-      <Form.Group controlId="cargo" className='mt-3'>
-        <Form.Label>Cargo</Form.Label>
-        <Form.Control as="select" name="cargo" onChange={handleChange} required>
-          <option value="">Selecciona el cargo</option>
-          <option value="MAESTRO_DE_GRADO">Maestro de Grado</option>
-          <option value="MAESTRO_A_CARGO_DE_DIRECCION">Maestro a Cargo de Dirección</option>
-          <option value="MAESTRO_ESPECIAL">Maestro Especial</option>
-        </Form.Control>
-      </Form.Group>
-          
+                    
       <Form.Group controlId="telefonoTutor" className='mt-3'>
-        <Form.Label>Teléfono</Form.Label>
+        <Form.Label>Teléfono tutor</Form.Label>
         <Form.Control type="text" name="telefonoTutor" onChange={handleChange} required />
       </Form.Group>
           
-      <Form.Group controlId="seccion" className='mt-3'>
-        <Form.Label>Seccion</Form.Label>
-        <Form.Control as="select" name="seccion" onChange={handleChange} required>
-          <option value="">Selecciona la revista</option>
-          <option value="SECCION_A">SECCION A</option>
-          <option value="SECCION_B">SECCION B</option>
+      <Form.Group controlId="gradoEscolar" className='mt-3'>
+        <Form.Label>Cargo</Form.Label>
+        <Form.Control as="select" name="gradoEscolar" onChange={handleChange} required>
+          <option value="">Selecciona el grado</option>
+          <option value="JARDIN">JARDIN</option>
+          <option value="PRIMER_GRADO">PRIMER_GRADO</option>
+          <option value="SEGUNDO_GRADO">SEGUNDO_GRADO</option>
+          <option value="TERCER_GRADO">TERCER_GRADO</option>
+          <option value="CUARTO_GRADO">CUARTO_GRADO</option>
+          <option value="QUINTO_GRADO">QUINTO_GRADO</option>
+          <option value="SEXTO_GRADO">SEXTO_GRADO</option>
+          <option value="SEPTIMO_GRADO">SEPTIMO_GRADO</option>
         </Form.Control>
       </Form.Group>
           
@@ -117,12 +113,22 @@ const CrearAlumno = () => {
       <Form.Group controlId="fechaEgreso" className='mt-3'>
         <Form.Label>Fecha egreso</Form.Label>
         <Form.Control type="date" name="fechaEgreso" onChange={handleChange} required />
-          </Form.Group>
+      </Form.Group>
+      
+      <Form.Group controlId="seguroEscolar" className='mt-3'>
+        <Form.Label className='mb-2'>Seguro escolar pagado</Form.Label>
+        <Form.Check 
+          type="checkbox"
+          name="seguroEscolar"
+          onChange={handleChange}
+          label="Marque esta casilla si el seguro escolar ha sido pagado"
+        />
+      </Form.Group>
           
       <Form.Group controlId="observaciones" className='mt-3'>
         <Form.Label>Observaciones</Form.Label>
         <Form.Control type="text" name="observaciones" onChange={handleChange} required />
-          </Form.Group>
+      </Form.Group>
           
       <Form.Group controlId="legajo" className='mt-3'>
         <Form.Label>Legajo</Form.Label>
@@ -142,10 +148,10 @@ const CrearAlumno = () => {
       {/* Agrega aquí los Form.Group para los otros campos según el rol */}
 
       <Button variant="primary" type="submit" className='my-4'>
-        Crear usuario
+        Crear Alumno
       </Button>
-            </Form>
-            </PageContainer>
+    </Form>
+    </PageContainer>
   );
 };
 

@@ -29,7 +29,7 @@ const CrearPersonal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    usuario.rol = 'PROFESOR';
+    usuario.rol = 'PERSONAL';
 
     try {
         const response = await axios.post('http://localhost:3000/usuarios', usuario, {
@@ -44,7 +44,7 @@ const CrearPersonal = () => {
   };
 
     return (
-      <PageContainer title={"Crear Personal"}>
+    <PageContainer title={"Crear Personal"} btnBack={'/personal'}>
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className='mt-3'>
         <Form.Label>Nombre</Form.Label>
@@ -69,10 +69,25 @@ const CrearPersonal = () => {
           <option value="F">Femenino</option>
         </Form.Control>
       </Form.Group>
+      
+      <Form.Group controlId="telefono" className='mt-3'>
+        <Form.Label>Telefono</Form.Label>
+        <Form.Control type="number" name="telefono" onChange={handleChange} required />
+      </Form.Group>
 
       <Form.Group controlId="fechaNacimiento" className='mt-3'>
         <Form.Label>Fecha de Nacimiento</Form.Label>
         <Form.Control type="date" name="fechaNacimiento" onChange={handleChange} required />
+      </Form.Group>
+      
+      <Form.Group controlId="fechaIngreso" className='mt-3'>
+        <Form.Label>Fecha ingreso</Form.Label>
+        <Form.Control type="date" name="fechaIngreso" onChange={handleChange} required />
+      </Form.Group>
+      
+      <Form.Group controlId="fechaIngreso" className='mt-3'>
+        <Form.Label>Antiguedad institucional</Form.Label>
+        <Form.Control type="date" name="fechaIngreso" onChange={handleChange} required />
       </Form.Group>
 
       <Form.Group controlId="email" className='mt-3'>

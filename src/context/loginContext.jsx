@@ -5,6 +5,7 @@ const loginContext = createContext()
 
 const LoginProvider = ({ children }) => {
     const [auth, setAuth] = useState()
+    const baseUrl = "http://localhost:3000";
 
     // Guarda la información del login en el localStorage
 const inicioSesion = (data) => {
@@ -40,9 +41,10 @@ const cerrarSesion = () => {
         <loginContext.Provider
             value={{
                 auth,
+                baseUrl,
                 setAuth,
                 inicioSesion,
-                cerrarSesion
+                cerrarSesion,
             }}
         >
             {children}

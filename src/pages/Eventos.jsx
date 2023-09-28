@@ -1,28 +1,53 @@
 import { Card, Col, Container, Row } from "react-bootstrap"
 import PageContainer from "../components/PageContainer"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import useLogin from "../hooks/useLogin";
+import moment from "moment";
 
 const Eventos = () => {
-  const events = [
-    { title: 'Evento 1', date: '2023-09-18', type: 'Tipo A', images: 'Imagen 1' },
-    { title: 'Evento 2', date: '2023-09-17', type: 'Tipo B', images: 'Imagen 2' },
-    { title: 'Evento 3', date: '2023-09-16', type: 'Tipo C', images: 'Imagen 3' },
-    { title: 'Evento 4', date: '2023-09-15', type: 'Tipo D', images: 'Imagen 4' },
-    { title: 'Evento 5', date: '2023-09-14', type: 'Tipo E', images: 'Imagen 5' },
-    { title: 'Evento 6', date: '2023-09-13', type: 'Tipo F', images: 'Imagen 6' },
-  ];
+  const { auth, baseUrl } = useLogin()
+  const [eventos, setEventos] = useState([])
+  
+  useEffect(() => {
+    const obtenerEventos = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/eventos', {
+          headers: {
+            'Authorization': `${auth.token}`
+          }
+        });
+        setEventos(response.data.eventos);
+      } catch (error) {
+        console.error(`Hubo un error al obtener los usuarios: ${error}`);
+      }
+    };
+
+    obtenerEventos();
+  }, []);
 
   return (
     <PageContainer title={"Historial de eventos"} btn btnAdd={"/crear-evento"} >
       <Container className="mt-4">
         <Row>
-          {events.map((event, index) => (
+          {eventos.map((event, index) => (
             <Col md={10} className="offset-1 my-2" key={index}>
               <Card>
                 <Card.Body>
-                  <h2>{event.title}</h2>
-                  <h4>{event.date}</h4>
-                  <p>{event.type}</p>
-                  <p>{event.images}</p>
+                  <Row>
+                    <Col md={10}>
+                      <h2>{event.titulo}</h2>
+                    </Col>
+                    <Col md={2}>
+                      <h4>{moment(event.createdAt).format('DD-MM-YYYY')}</h4>
+                    </Col>
+                    <Col md={12}>
+                      <p>{event.tipo}</p>
+                    </Col>
+                    <Col md={12}>
+                      <img src={baseUrl + event?.imagen} width={"100%"} height={480} alt={event?.titulo} />
+                    </Col>
+                  </Row>
                 </Card.Body>
               </Card>
             </Col>
