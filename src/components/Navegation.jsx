@@ -44,7 +44,7 @@ const Navegation = () => {
               <NavLink className='fs-4 mt-2 mb-5' href="/comedor">COMEDOR</NavLink>
             </NavItem>
             <NavItem>
-              <NavItem className='fs-4 my-5 text-danger' onClick={()=>cerrarSesion()}><p className='ml-5'>Cerrar Sesion</p></NavItem>
+              <NavItem className='fs-4 mt-2 text-danger' onClick={()=>cerrarSesion()}><p className='ml-5'>Cerrar Sesion</p></NavItem>
             </NavItem>
           </Nav>
         </Navbar.Collapse>

@@ -7,51 +7,37 @@ import { Button } from "react-bootstrap";
 import moment from "moment";
 
 const Licencias = () => {
-    const [usuarios, setUsuarios] = useState()
     const { auth } = useLogin()
+    const [licencias, setLicencias] = useState([])
     const columns = [
+
       {
-          name: 'Nombre y apellido',
-          selector: row => row.nombre + " " + row.apellido,
+          name: 'Dias',
+          selector: row => row.dias,
       },
-      {
-        name: 'DNI',
-        selector: row => row.dni,
-      },
-      {
-        name: 'Fecha de nacimiento',
-      selector: row => (moment(row.fechaNacimiento).format('DD-MM-YYYY')),
-    },
-      {
-          name: 'Cargo',
-          selector: row => row.rol,
-      },
-      {
-          name: 'Acciones',
-          selector: row => (<><Button variant="success">Autorizar</Button><Button variant="warning" className="mx-2">No autorizar</Button></>),
-      }
+
   ];
 
     useEffect(() => {
-        const obtenerUsuarios = async () => {
+        const obtenerLicencias = async () => {
           try {
-            const response = await axios.get('http://localhost:3000/usuarios', {
+            const response = await axios.get('http://localhost:3000/licencias', {
               headers: {
                 'Authorization': `${auth.token}`
               }
             });
-            setUsuarios(response.data.usuarios);
+            setLicencias(response.data.licencias);
           } catch (error) {
-            console.error(`Hubo un error al obtener los usuarios: ${error}`);
+            console.error(`Hubo un error al obtener los licencias: ${error}`);
           }
         };
     
-        obtenerUsuarios();
+        obtenerLicencias();
       }, []);
-console.log(usuarios)
+console.log(licencias)
   return (
     <PageContainer title={"Licencias"} btnAdd={'/crear-licencia'}>
-          <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>          
+        <Table columns={columns} data={licencias} placeholder={"Filtrar por nombre"}/>        
     </PageContainer>
   )
 }

@@ -1,3 +1,9 @@
 .bg-image {
     background-image: url('/public/fondo.jpeg');
 }
+
+@media (min-width: 992px) { /* Este es el breakpoint para desktop (lg) en Bootstrap 5 */
+    .h-100-lg {
+      height: 100% !important;
+    }
+  }

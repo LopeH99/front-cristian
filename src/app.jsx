@@ -16,10 +16,10 @@ const App = () => {
       ): (
         <Row>
         <Header />
-        <Col md={2} className="bg-dark">
+        <Col md={2} className="bg-dark h-100-lg z-index-top" style={{ position: 'fixed', overflowY: 'auto' }}>
           <Navegation />
         </Col>
-        <Col md={10} className="overflow-y-scroll">
+        <Col md={{ span: 10, offset: 2 }} className="overflow-y-scroll" style={{height: '100vh', overflowX: 'hidden', overflowY: 'scroll' }}>
           <RouterProvider router={router} />
         </Col>
       </Row>    
