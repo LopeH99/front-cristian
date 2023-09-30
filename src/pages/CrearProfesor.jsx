@@ -28,6 +28,11 @@ const CrearProfesor = () => {
     if (e.target.name === 'dni') {
       value = parseInt(value, 10);
     }
+    if (e.target.name === 'antiguedadDocente' || e.target.name === 'antiguedadInstitucion') {
+      value = new Date(value);
+      // Convertir la fecha a una cadena en formato ISO
+      value = value.toISOString();
+    }
     setUsuario({
       ...usuario,
       [e.target.name]: value
@@ -84,7 +89,7 @@ const CrearProfesor = () => {
         <Form.Label>Fecha de Nacimiento</Form.Label>
         <Form.Control type="date" name="fechaNacimiento" onChange={handleChange} required />
           </Form.Group>
-          
+
       <Form.Group controlId="cargo" className='mt-3'>
         <Form.Label>Cargo</Form.Label>
         <Form.Control as="select" name="cargo" onChange={handleChange} required>
@@ -94,12 +99,12 @@ const CrearProfesor = () => {
           <option value="MAESTRO_ESPECIAL">Maestro Especial</option>
         </Form.Control>
       </Form.Group>
-          
+
       <Form.Group controlId="telefono" className='mt-3'>
         <Form.Label>Teléfono</Form.Label>
         <Form.Control type="text" name="telefono" onChange={handleChange} required />
       </Form.Group>
-          
+
       <Form.Group controlId="revista" className='mt-3'>
         <Form.Label>Revista</Form.Label>
         <Form.Control as="select" name="revista" onChange={handleChange} required>
@@ -109,22 +114,22 @@ const CrearProfesor = () => {
           <option value="INTERINO">Interino</option>
         </Form.Control>
       </Form.Group>
-          
+
       <Form.Group controlId="antiguedadDocente" className='mt-3'>
         <Form.Label>Antigüedad Docente</Form.Label>
         <Form.Control type="date" name="antiguedadDocente" onChange={handleChange} required />
       </Form.Group>
-          
+
       <Form.Group controlId="antiguedadInstitucion" className='mt-3'>
         <Form.Label>Antigüedad Institucional</Form.Label>
         <Form.Control type="date" name="antiguedadInstitucion" onChange={handleChange} required />
           </Form.Group>
-          
+
       <Form.Group controlId="observaciones" className='mt-3'>
         <Form.Label>Observaciones</Form.Label>
         <Form.Control type="text" name="observaciones" onChange={handleChange} required />
           </Form.Group>
-          
+
       <Form.Group controlId="legajo" className='mt-3'>
         <Form.Label>Legajo</Form.Label>
         <Form.Control type="text" name="legajo" onChange={handleChange} required />
@@ -145,8 +150,8 @@ const CrearProfesor = () => {
       <Button variant="primary" type="submit" className='my-4'>
         Crear usuario
       </Button>
-            </Form>
-            </PageContainer>
+    </Form>
+    </PageContainer>
   );
 };
 

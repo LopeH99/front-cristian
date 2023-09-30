@@ -24,7 +24,7 @@ const Profesores = () => {
           console.error(`Hubo un error al eliminar el usuario: ${error}`);
       }
     };
-  
+
     const columns = [
         {
             name: 'Nombre y apellido',
@@ -78,7 +78,6 @@ const Profesores = () => {
         </>),
       }
     ];
-    console.log(profesores)
     useEffect(() => {
         const obtenerUsuarios = async () => {
           try {
@@ -87,12 +86,13 @@ const Profesores = () => {
                 'Authorization': `${auth.token}`
               }
             });
+            console.log(response)
             setProfesores(response.data.usuarios);
           } catch (error) {
             console.error(`Hubo un error al obtener los usuarios: ${error}`);
           }
         };
-    
+
         obtenerUsuarios();
       }, []);
   return (

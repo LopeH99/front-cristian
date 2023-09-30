@@ -26,7 +26,6 @@ const Novedades = () => {
         'Authorization': `${auth.token}`
       }
     });
-    console.log(response)
     setNovedades(response.data.novedades);
   } catch (error) {
     console.error(`Hubo un error al obtener los usuarios: ${error}`);
@@ -39,33 +38,35 @@ const Novedades = () => {
 };
 
 const onDelete = async (id) => {
-  try {
-    await axios.delete(`http://localhost:3000/eventos/${id}`, {
-      headers: {
-        'Authorization': `${auth.token}`
-      }
-    });
-    setToastMessage({
-      title: "Novedad",
-      message: "Se elimino la novedad correctamente",
-      color:"danger"
-    })
-    setShowToast(true)
-    // Actualizar la lista de novedades después de eliminar
-    getNovedades();
-  } catch (error) {
-    console.error(`Hubo un error al eliminar la novedad: ${error}`);
+  // Mostrar un cuadro de diálogo de confirmación
+  if (window.confirm("¿Estás seguro de que quieres eliminar esta novedad?")) {
+    try {
+      await axios.delete(`http://localhost:3000/eventos/${id}`, {
+        headers: {
+          'Authorization': `${auth.token}`
+        }
+      });
+      setToastMessage({
+        title: "Novedad",
+        message: "Se elimino la novedad correctamente",
+        color:"danger"
+      })
+      setShowToast(true)
+      // Actualizar la lista de novedades después de eliminar
+      getNovedades();
+    } catch (error) {
+      console.error(`Hubo un error al eliminar la novedad: ${error}`);
+    }
   }
-  };
+};
 
   useEffect(() => {
     getNovedades();
   }, []);
 
   return (
-    <>
-    <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
     <PageContainer title={"Novedades"}>
+    <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
       <Container>
         <Row>
           <Col md={8} className="offset-lg-2">
@@ -78,7 +79,7 @@ const onDelete = async (id) => {
                     <Col md={1}>
                       <DropdownBootstrap id={novedad.id} onEdit={onEdit} onDelete={onDelete}/>
                     </Col>
-                    <Col lg={12} className="w-100 h-100 text-center my-3"><img src={novedad?.imagen} width={"100%"} height={480} alt={novedad?.titulo} /></Col>
+                    <Col lg={12} className="w-100 h-100 text-center my-3"><img src={`http://localhost:3000/${novedad?.imagen}`} width={"100%"} height={480} alt={novedad?.titulo} /></Col>
                     <Col lg={12}><h4>{novedad?.descripcion}</h4></Col>
                   </Row>
                 </Col>
@@ -88,8 +89,6 @@ const onDelete = async (id) => {
         </Row>
       </Container>
       </PageContainer>
-    </>
-      
   )
 }
 

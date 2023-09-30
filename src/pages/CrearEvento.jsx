@@ -4,6 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import PageContainer from '../components/PageContainer';
 import useLogin from '../hooks/useLogin';
 import { useParams } from 'react-router-dom';
+import ToastBootstrap from "../components/Toasts";
 
 const CrearEvento = () => {
   const { auth } = useLogin();
@@ -15,6 +16,24 @@ const CrearEvento = () => {
   const [fecha, setFecha] = useState('');
   const [archivo, setArchivo] = useState(null);
   const [descripcion, setDescripcion] = useState('');
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState({
+    title: "Novedad",
+    message: "Se elimino la novedad correctamente",
+    color:"danger"
+  });
+
+  const resetForm = () => {
+  setTitulo('');
+  setTipo('');
+  setNovedad(false);
+  setIncidencia(false);
+  setFecha('');
+  setArchivo(null);
+  setDescripcion('');
+};
+
+
 
 const enviarFormulario = async (e) => {
   e.preventDefault();
@@ -36,7 +55,13 @@ const enviarFormulario = async (e) => {
           'Authorization': `Bearer ${auth.token}`
         }
       });
-      alert('Evento actualizado con éxito');
+    setToastMessage({
+      title: "Evento",
+      message: "Se actualizo correctamente",
+      color:"success"
+    })
+      setShowToast(true)
+      resetForm();
     } else {
       // Si no se proporciona un id, crea un nuevo evento
       await axios.post('http://localhost:3000/eventos', formData, {
@@ -44,29 +69,40 @@ const enviarFormulario = async (e) => {
           'Authorization': `Bearer ${auth.token}`
         }
       });
-      alert('Evento creado con éxito');
+    setToastMessage({
+      title: "Evento",
+      message: "Se creo el evento correctamente",
+      color:"success"
+    })
+    setShowToast(true)
     }
   } catch (error) {
     console.error(error);
-    alert('Hubo un error al crear el evento');
+    setToastMessage({
+      title: "Evento",
+      message: "No se pudo crear el evento",
+      color:"danger"
+    })
+    setShowToast(true)
   }
 };
 
-    const getNovedad = async () => {
+  const getNovedad = async () => {
+      console.log(id)
     try {
-      const response = await axios.get(`http://localhost:3000/eventos/${id}`, {
+      const response = await axios.get(`http://localhost:3000/eventos?novedad=true&incidencia=false&id=${id}`, {
         headers: {
           'Authorization': `${auth.token}`
         }
       });
-      const novedad = response.data;
+      const novedad = response.data.novedades;
       // Establece los estados con los datos de la novedad
-      setTitulo(novedad.titulo);
-      setTipo(novedad.tipo);
-      setNovedad(novedad.novedad);
-      setIncidencia(novedad.incidencia);
-      setFecha(novedad.fecha);
-      setDescripcion(novedad.descripcion);
+      setTitulo(novedad[0].titulo);
+      setTipo(novedad[0].tipo);
+      setNovedad(novedad[0].novedad);
+      setIncidencia(novedad[0].incidencia);
+      setFecha(novedad[0].fecha);
+      setDescripcion(novedad[0].descripcion);
     } catch (error) {
       console.error(`Hubo un error al obtener la novedad: ${error}`);
     }
@@ -77,10 +113,9 @@ const enviarFormulario = async (e) => {
       getNovedad();
     }
   }, []);
-
-
   return (
     <PageContainer title={"Crear evento"} btnBack={'/eventos'}>
+    <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
     <Form onSubmit={enviarFormulario}>
       <Form.Group className='mt-4' controlId="formFile">
         <Form.Label>Archivo</Form.Label>

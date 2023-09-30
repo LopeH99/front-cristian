@@ -6,23 +6,52 @@ import useLogin from "../hooks/useLogin";
 import { Button } from "react-bootstrap";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import ToastBootstrap from "../components/Toasts";
 
 const Alumnos = () => {
   const [alumnos, setAlumnos] = useState()
   const { auth } = useLogin()
   const navigate = useNavigate()
-  
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState({
+    title: "Novedad",
+    message: "Se elimino la novedad correctamente",
+    color:"danger"
+  });
+
+    const obtenerAlumnos = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/usuarios?rol=ALUMNO', {
+        headers: {
+          'Authorization': `${auth.token}`
+        }
+      });
+      setAlumnos(response.data.usuarios);
+    } catch (error) {
+      console.error(`Hubo un error al obtener los usuarios: ${error}`);
+    }
+  };
+
   const eliminarUsuario = async (id) => {
+    if (window.confirm("¿Estás seguro de que quieres eliminar esta alumno?")) {
     try {
         const response = await axios.delete(`http://localhost:3000/usuarios/${id}`, {
             headers: {
                 'Authorization': `${auth.token}`
             }
         });
+        setToastMessage({
+        title: "Alumnos",
+        message: "Se elimino el alumno correctamente",
+        color:"danger"
+      })
+      setShowToast(true)
+      obtenerAlumnos()
         // Aquí puedes manejar la respuesta después de eliminar el usuario.
     } catch (error) {
         console.error(`Hubo un error al eliminar el usuario: ${error}`);
-    }
+      }
+      }
   };
 
     const columns = [
@@ -72,26 +101,12 @@ const Alumnos = () => {
   ];
 
     useEffect(() => {
-        const obtenerAlumnos = async () => {
-          try {
-            const response = await axios.get('http://localhost:3000/usuarios?rol=ALUMNO', {
-              headers: {
-                'Authorization': `${auth.token}`
-              }
-            });
-            setAlumnos(response.data.usuarios);
-          } catch (error) {
-            console.error(`Hubo un error al obtener los usuarios: ${error}`);
-          }
-        };
-    
         obtenerAlumnos();
       }, []);
-      
-      console.log(alumnos)
-    
+
   return (
         <PageContainer title={'Alumnos'} btnAdd={'/crear-alumno'}>
+          <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
           <Table columns={columns} data={alumnos} placeholder={"Filtrar por nombre"}/>
         </PageContainer>
   )
