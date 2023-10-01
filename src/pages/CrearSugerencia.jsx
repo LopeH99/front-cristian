@@ -8,6 +8,17 @@ const CrearSugerencia = () => {
     const {auth} = useLogin()
     const [text, setText] = useState('');
     const [anonymous, setAnonymous] = useState(true);
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState({
+      title: "",
+      message: "",
+      color:""
+    });
+    
+    const resetForm = () => {
+      setText('');
+      setAnonymous(true);
+    };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,10 +35,20 @@ const CrearSugerencia = () => {
           'Authorization': `${auth.token}`
         }
       });
-      alert('Sugerencia enviada con éxito');
+      setToastMessage({
+        title: "Sugerencia",
+        message: "Sugerencia enviada con éxito",
+        color:"success"
+      })
+        setShowToast(true)
+        resetForm();
     } catch (error) {
-      console.error(error);
-      alert('Hubo un error al enviar la sugerencia');
+      setToastMessage({
+        title: "Sugerencia",
+        message: "No se pudo crear la sugerencia",
+        color:"danger"
+      })
+      setShowToast(true)
     }
   };
 

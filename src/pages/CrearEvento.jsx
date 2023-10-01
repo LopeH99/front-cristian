@@ -18,9 +18,9 @@ const CrearEvento = () => {
   const [descripcion, setDescripcion] = useState('');
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState({
-    title: "Novedad",
-    message: "Se elimino la novedad correctamente",
-    color:"danger"
+    title: "",
+    message: "",
+    color:""
   });
 
   const resetForm = () => {
