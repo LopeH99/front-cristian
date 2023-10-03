@@ -36,6 +36,8 @@ const Personal = () => {
       }
   ];
 
+  console.log(usuarios)
+
     useEffect(() => {
         const obtenerUsuarios = async () => {
           try {
@@ -49,13 +51,13 @@ const Personal = () => {
             console.error(`Hubo un error al obtener los usuarios: ${error}`);
           }
         };
-    
+
         obtenerUsuarios();
       }, []);
 
   return (
     <PageContainer title={"Personal"} btnAdd={'/crear-personal'}>
-          <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>          
+          <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>
     </PageContainer>
   )
 }

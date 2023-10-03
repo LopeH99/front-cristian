@@ -94,7 +94,8 @@ const Profesores = () => {
         };
 
         obtenerUsuarios();
-      }, []);
+    }, []);
+  console.log(profesores)
   return (
         <PageContainer title={"Profesores"} btnAdd={'/crear-profesor'}>
           <Table columns={columns} data={profesores} placeholder={"Filtrar por nombre"}/>

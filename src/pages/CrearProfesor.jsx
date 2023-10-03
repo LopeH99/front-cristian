@@ -59,7 +59,7 @@ const CrearProfesor = () => {
   };
 
     return (
-      <PageContainer title={"Agregar un nuevo profesor"}>
+      <PageContainer title={"Agregar un nuevo profesor"} btnBack={'/profesores'}>
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className='mt-3'>
         <Form.Label>Nombre</Form.Label>

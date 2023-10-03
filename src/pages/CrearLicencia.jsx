@@ -11,9 +11,8 @@ const CrearLicencia = () => {
     console.log(title)
   }
 
-  return ( 
-    <PageContainer title="Crear licencia">     
-      
+  return (
+    <PageContainer title="Crear licencia" btnBack={'/licencias'}>
   <Form onSubmit={handleSubmit} className="p-3">
     <Form.Group controlId="title">
     <Form.Label>Titulo</Form.Label>
@@ -46,9 +45,9 @@ const CrearLicencia = () => {
         <Button variant="primary" type="submit" className="px-5">
         Enviar
         </Button>
-    </div>  
-      </Form>  
-      </PageContainer>    
+    </div>
+      </Form>
+      </PageContainer>
   );
 };
 

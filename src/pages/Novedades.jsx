@@ -64,6 +64,7 @@ const onDelete = async (id) => {
     getNovedades();
   }, []);
 
+console.log(novedades)
   return (
     <PageContainer title={"Novedades"}>
     <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />

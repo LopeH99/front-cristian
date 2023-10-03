@@ -8,7 +8,7 @@ const Table = ({ columns, data, placeholder, btnDownloadList, btnAdd }) => {
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 	const filteredItems = data?.filter(
 		item => item?.nombre && item?.nombre.toLowerCase().includes(filterText.toLowerCase()),
-	);
+    );
 
 	const subHeaderComponentMemo = useMemo(() => {
 		const handleClear = () => {
@@ -27,14 +27,14 @@ const Table = ({ columns, data, placeholder, btnDownloadList, btnAdd }) => {
                     {btnDownloadList && (
                         <Col md={6}>
                             <Button className='px-5 py-2'>
-                                    Descargar listado       
+                                    Descargar listado
                             </Button>
                         </Col>
                     )}
-                    {btnAdd && (    
+                    {btnAdd && (
                         <Col md={6}>
                             <Button className='px-5 py-2 bg-success'>
-                                    Crear nuevo     
+                                    Crear nuevo
                             </Button>
                         </Col>
                     )}
