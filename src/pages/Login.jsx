@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Form, Button, Container, Col, Row, Alert } from "react-bootstrap";
+import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { login } from "../services/authService";
 import useLogin from "../hooks/useLogin";
 import Alerta from "../components/Alerta";
 
 const Login = () => {
     const {inicioSesion} = useLogin()
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("admin@tesis.com");
+    const [password, setPassword] = useState("1234");
     const [alert, setAlert] = useState();
     const [loading, setLoading] = useState(false)
 
@@ -31,7 +31,7 @@ const Login = () => {
 };
 
   return (
-      <Container fluid className="pt-md-5 bg-primary bg-image" style={{height:'100vh'}}>
+      <Container fluid className="pt-md-5 bg-primary bg-image" style={{height:'100vh'}}> 
         <Row className="pf-md-5">
             <Col xs={12} sm={12} md={4} lg={4} className="offset-md-4 align-items-center justify-content-center">
                 <Form onSubmit={handleSubmit} className="p-3 mt-5 bg-white shadow rounded my-auto border border-primary">
