@@ -80,7 +80,7 @@ console.log(novedades)
                     <Col md={1}>
                       <DropdownBootstrap id={novedad.id} onEdit={onEdit} onDelete={onDelete}/>
                     </Col>
-                    <Col lg={12} className="w-100 h-100 text-center my-3"><img src={`http://localhost:3000/${novedad?.imagen}`} width={"100%"} height={480} alt={novedad?.titulo} /></Col>
+                    <Col lg={12} className="w-100 h-100 text-center my-3"><img src={`http://localhost:3000${novedad?.imagen}`} width={"100%"} height={480} alt={novedad?.titulo} /></Col>
                     <Col lg={12}><h4>{novedad?.descripcion}</h4></Col>
                   </Row>
                 </Col>
