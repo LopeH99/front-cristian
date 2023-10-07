@@ -14,7 +14,9 @@ const Header = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item className="text-danger" onClick={()=>cerrarSesion()}>Cerrar Sesion</Dropdown.Item>
+          <Dropdown.Item className="text-danger" onClick={()=>cerrarSesion()}><a href='/' style={{ color: 'red', textDecoration: 'none' }}>
+                <p className='ml-5'>Cerrar Sesion</p>
+              </a></Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
       </Col>

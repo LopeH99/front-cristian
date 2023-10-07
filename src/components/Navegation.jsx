@@ -44,7 +44,11 @@ const Navegation = () => {
               <NavLink className='fs-4 mt-2 mb-5' href="/comedor">COMEDOR</NavLink>
             </NavItem>
             <NavItem>
-              <NavItem className='fs-4 mt-2 text-danger' onClick={()=>cerrarSesion()}><p className='ml-5'>Cerrar Sesion</p></NavItem>
+              <NavItem className='fs-4 mt-2 text-danger' onClick={()=>cerrarSesion()}>
+              <a href='/' style={{ color: 'red', textDecoration: 'none' }}>
+                <p className='ml-5'>Cerrar Sesion</p>
+              </a>
+            </NavItem>
             </NavItem>
           </Nav>
         </Navbar.Collapse>
