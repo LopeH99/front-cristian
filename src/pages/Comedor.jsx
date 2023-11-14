@@ -10,13 +10,13 @@ const Comedor = () => {
   
   const obtenerMenus = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/usuarios?rol=ALUMNO', {
+      await axios.get('http://localhost:3000/menus', {
         headers: {
           'Authorization': `${auth.token}`
         }
-      });
-      setMenus(response.data);
-      console.log(response)
+      }).then((response)=>{
+        setMenus(response.data.menus);
+      })
     } catch (error) {
       console.error(`Hubo un error al obtener los usuarios: ${error}`);
     }

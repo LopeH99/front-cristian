@@ -3,9 +3,11 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import PageContainer from '../components/PageContainer';
 import useLogin from '../hooks/useLogin';
+import { useNavigate } from 'react-router-dom';
 
 const CrearSugerencia = () => {
-    const {auth} = useLogin()
+    const {auth} = useLogin();
+    const navigate = useNavigate()
     const [text, setText] = useState('');
     const [anonymous, setAnonymous] = useState(true);
     const [showToast, setShowToast] = useState(false)
@@ -26,25 +28,28 @@ const CrearSugerencia = () => {
     event.preventDefault();
 
     const suggestionData = {
-      texto: text,
+      texo: text,
       anonima: anonymous,
       tipo: suggestionType,
     };
 
-      console.log(suggestionData)
     try {
       await axios.post('http://localhost:3000/sugerencias', suggestionData, {
         headers: {
           'Authorization': `${auth.token}`
         }
-      });
-      setToastMessage({
-        title: "Sugerencia",
-        message: "Sugerencia enviada con éxito",
-        color:"success"
+      }).then((resp)=>{
+        if(resp?.data?.ok){
+          setToastMessage({
+            title: "Sugerencia",
+            message: "Sugerencia enviada con éxito",
+            color:"success"
+          })
+            setShowToast(true)
+            resetForm();
+            navigate('/sugerencias')
+        }
       })
-        setShowToast(true)
-        resetForm();
     } catch (error) {
       setToastMessage({
         title: "Sugerencia",

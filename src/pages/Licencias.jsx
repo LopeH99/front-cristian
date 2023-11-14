@@ -20,7 +20,7 @@ const Licencias = () => {
       },
       {
           name: 'Fecha de solicitud de licencia',
-          selector: row => row.fechaSolicitud,
+          selector: row => moment(row.fechaSolicitud).format('DD-MM-YYYY'),
       },
       {
         name: 'Cantidad de dias solicitados',
@@ -28,10 +28,11 @@ const Licencias = () => {
     },
       {
           name: 'Expiracion licencia',
-          selector: row => row.rol,
+          selector: row => moment(row.fechaSolicitud).add(row.dias,'d').format('DD-MM-YYYY'),
       },
       {
           name: 'Articulo solicitado',
+          minWidth: '320px',
           selector: row => row.articulo,
       }
   ];

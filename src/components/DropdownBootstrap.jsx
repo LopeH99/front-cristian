@@ -9,7 +9,7 @@ const DropdownBootstrap = ({id, onEdit, onDelete}) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-        <Dropdown.Item href="#" onClick={()=>onEdit(id)}>Editar</Dropdown.Item>
+        {/* <Dropdown.Item href="#" onClick={()=>onEdit(id)}>Editar</Dropdown.Item> */}
         <Dropdown.Item href="#" onClick={()=>onDelete(id)}>Eliminar</Dropdown.Item>
         </Dropdown.Menu>
     </Dropdown>

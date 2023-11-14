@@ -16,50 +16,47 @@ const TableFood = () => {
         'Masa de pizza, salsa de tomate, mozzarella'
     ];
 
-  return (
-    <Container fluid>
-        <Row className="mt-3">
-            <Col md={3}>
-                <Row>
-                <Col>Seleccionar semana</Col>
-                <Col>
-                    <Form.Control
-                    type="date"
-                    placeholder="Semana"
-                    value={week}
-                    onChange={(event) => setWeek(event.target.value)}
-                    />
+    return (
+        <Container fluid>
+            <Row className="mt-3">
+                <Col md={3}>
+                    <Row>
+                    <Col>Seleccionar semana</Col>
+                    <Col>
+                        <Form.Control
+                        type="date"
+                        placeholder="Semana"
+                        value={week}
+                        onChange={(event) => setWeek(event.target.value)}
+                        />
+                    </Col>
+                    </Row>
                 </Col>
-                </Row>
-            </Col>
-            <Col md={3} className="offset-md-6">
-                <Row>
-                    <Button className="col-md-12">Descargar listado</Button>
-                    <Button className="col-md-12 mt-2 btn btn-success" onClick={()=>navigate('/registrar-semana')}>Registrar semanas</Button>
-                </Row>      
-            </Col>
-        </Row>
-        <Row>
-            <Col md={12}>
-                <Row>
-                    <Col md={12}><h3>Periodo de la semana</h3></Col>
-
-                    {days.map((day, index) => (
-                        <Col md={12} className="card p-3 my-3" key={index}>
-                            <Row>
-                                <Col md={12}>Dia: {day}</Col>  
-                                <Col md={12}>Menú: {menus[index]}</Col>  
-                                <Col md={12}>Ingredientes: {ingredients[index]}</Col>  
-                            </Row>
-                        </Col>
-                    ))}
-                    
-                </Row>
-            </Col>
-        </Row>  
-          
-    </Container>   
-  )
+                <Col md={3} className="offset-md-6">
+                    <Row>
+                        <Button className="col-md-12">Descargar listado</Button>
+                        <Button className="col-md-12 mt-2 btn btn-success" onClick={()=>navigate('/registrar-semana')}>Registrar semanas</Button>
+                    </Row>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={12}>
+                    <Row>
+                        <Col md={12}><h3>Periodo de la semana</h3></Col>
+                        {days.map((day, index) => (
+                            <Col md={12} className="card p-3 my-3" key={index}>
+                                <Row>
+                                    <Col md={12}>Dia: {day}</Col>
+                                    <Col md={12}>Menú: {menus[index]}</Col>
+                                    <Col md={12}>Ingredientes: {ingredients[index]}</Col>
+                                </Row>
+                            </Col>
+                        ))}
+                    </Row>
+                </Col>
+            </Row>
+        </Container>
+    )
 }
 
 export default TableFood

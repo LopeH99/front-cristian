@@ -33,20 +33,23 @@ const Alumnos = () => {
   };
 
   const eliminarUsuario = async (id) => {
-    if (window.confirm("¿Estás seguro de que quieres eliminar esta alumno?")) {
+    if (window.confirm("¿Estás seguro de que quieres eliminar el alumno/a?")) {
     try {
-        const response = await axios.delete(`http://localhost:3000/usuarios/${id}`, {
+        await axios.delete(`http://localhost:3000/usuarios/${id}`, {
             headers: {
                 'Authorization': `${auth.token}`
             }
-        });
-        setToastMessage({
-        title: "Alumnos",
-        message: "Se elimino el alumno correctamente",
-        color:"danger"
-      })
-      setShowToast(true)
-      obtenerAlumnos()
+        }).then((resp)=>{
+          if(resp?.data?.ok){
+            setToastMessage({
+              title: "Alumnos",
+              message: "Se elimino el alumno correctamente",
+              color:"danger"
+            })
+            setShowToast(true)
+            obtenerAlumnos()
+          }
+        })
         // Aquí puedes manejar la respuesta después de eliminar el usuario.
     } catch (error) {
         console.error(`Hubo un error al eliminar el usuario: ${error}`);
@@ -93,6 +96,7 @@ const Alumnos = () => {
     },
     {
         name: 'Acciones',
+        minWidth: '150px',
         selector: row => (<>
           <Button variant="warning" onClick={() => navigate(`/crear-alumno/${row.id}`)}>E</Button>
           <Button variant="danger" className="mx-2" onClick={() => eliminarUsuario(row.id)}>X</Button>

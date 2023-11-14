@@ -9,7 +9,7 @@ import Incidencias from '../pages/Incidencias';
 import Horarios from '../pages/Horarios';
 import Comedor from '../pages/Comedor';
 import Licencias from '../pages/Licencias';
-import CrearEvento from '../pages/CrearEvento';
+import CrearNovedad from '../pages/CrearNovedad';
 import CrearIncidencia from '../pages/CrearIncidencia';
 import CrearLicencia from '../pages/CrearLicencia';
 import RegistrarSemana from '../pages/RegistrarSemana';
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
       element: <CrearAlumno />,
     },
     {
+      path: "/crear-alumno/:id",
+      element: <CrearAlumno />,
+    },
+    {
       path: "/profesores",
       element: <Profesores />,
     },
@@ -52,7 +56,15 @@ const router = createBrowserRouter([
       element: <CrearPersonal />,
     },
     {
+      path: "/crear-personal/:id",
+      element: <CrearPersonal />,
+    },
+    {
       path: "/crear-profesor",
+      element: <CrearProfesor />,
+    },
+    {
+      path: "/crear-profesor/:id",
       element: <CrearProfesor />,
     },
     {
@@ -72,12 +84,12 @@ const router = createBrowserRouter([
       element: <Eventos />,
     },
     {
-      path: "/crear-evento",
-      element: <CrearEvento />,
+      path: "/crear-novedad",
+      element: <CrearNovedad />,
     },
     {
-      path: "/crear-evento/:id",
-      element: <CrearEvento />,
+      path: "/editar-novedad/:id",
+      element: <CrearNovedad />,
     },
     {
       path: "/incidencias",

@@ -13,12 +13,15 @@ const Sugerencias = () => {
   useEffect(() => {
     const obtenerSugerencias = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/sugerencias', {
+        await axios.get('http://localhost:3000/sugerencias', {
           headers: {
             'Authorization': `${auth.token}`
           }
-        });
-        setSugerencias(response.data.sugerencias);
+        }).then((response)=>{
+          const data = response.data.sugerencias;
+          data?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          setSugerencias(response.data.sugerencias);
+        })
       } catch (error) {
         console.error(`Hubo un error al obtener los usuarios: ${error}`);
       }
@@ -27,24 +30,22 @@ const Sugerencias = () => {
     obtenerSugerencias();
   }, []);
 
-  console.log(sugerencias)
 
   return (
     <PageContainer title={"Sugerencias"} btnAdd={'/crear-sugerencia'}>
       <Container className="py-3">
         <Row>
           {sugerencias?.map(sugerencia => (
-            
-            <Col md={4} className="my-2" key={sugerencia.id}>
+            <Col xs={12} md={6} lg={4} className="my-2" key={sugerencia.id}>
               <Card>
                 <Card.Header>
                   <Row>
                     <Col>
                   <p>{sugerencia.anonima ? "Anonima" : `${sugerencia.usuario.apellido} ${sugerencia.usuario.nombre}`}</p>
-                  <h2>{sugerencia.tipo}</h2>
+                  <h4>{sugerencia.tipo}</h4>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                      {moment(sugerencia.created_at).format('DD-MM-YYYY')}
+                      {moment(sugerencia.created_at).format('DD-MM-YYYY HH:mm:ss')}
                     </Col>
                   </Row>
                 </Card.Header>

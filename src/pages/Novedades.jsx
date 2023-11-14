@@ -21,12 +21,15 @@ const Novedades = () => {
 
   const getNovedades = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/eventos?novedad=true', {
+    await axios.get('http://localhost:3000/eventos?novedad=true', {
       headers: {
         'Authorization': `${auth.token}`
       }
-    });
-    setNovedades(response.data.novedades);
+    }).then((response)=>{
+      const data = response.data.novedades || []
+      data?.sort((a, b) => new Date(b?.created_at) - new Date(a?.created_at));
+      setNovedades(data);
+    })
   } catch (error) {
     console.error(`Hubo un error al obtener los usuarios: ${error}`);
   }
@@ -34,7 +37,7 @@ const Novedades = () => {
 
   const onEdit = (id) => {
   // Navega a la página CrearEvento con el id de la novedad en la URL
-  navigate(`/crear-evento/${id}`);
+  navigate(`/editar-novedad/${id}`);
 };
 
 const onDelete = async (id) => {
@@ -45,15 +48,16 @@ const onDelete = async (id) => {
         headers: {
           'Authorization': `${auth.token}`
         }
-      });
-      setToastMessage({
-        title: "Novedad",
-        message: "Se elimino la novedad correctamente",
-        color:"danger"
+      }).then(()=>{
+        setToastMessage({
+          title: "Novedad",
+          message: "Se elimino la novedad correctamente",
+          color:"danger"
+        })
+        setShowToast(true)
+        // Actualizar la lista de novedades después de eliminar
+        getNovedades();
       })
-      setShowToast(true)
-      // Actualizar la lista de novedades después de eliminar
-      getNovedades();
     } catch (error) {
       console.error(`Hubo un error al eliminar la novedad: ${error}`);
     }
@@ -64,27 +68,51 @@ const onDelete = async (id) => {
     getNovedades();
   }, []);
 
-console.log(novedades)
   return (
-    <PageContainer title={"Novedades"}>
+    <PageContainer title={"Novedades"} btn btnAdd={'/crear-novedad'}>
     <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
       <Container>
         <Row>
           <Col md={8} className="offset-lg-2">
             <Row>
-              {novedades?.map(novedad => (
-                <Col lg={12} className="shadow rounded-4 my-3 border" key={novedad.id}>
-                  <Row className="px-2 py-3">
-                    <Col md={8}><h3>{novedad?.titulo}</h3></Col>
-                    <Col md={3}><h4>{moment(novedad?.fecha).format('DD-MM-YYYY')}</h4></Col>
-                    <Col md={1}>
-                      <DropdownBootstrap id={novedad.id} onEdit={onEdit} onDelete={onDelete}/>
-                    </Col>
-                    <Col lg={12} className="w-100 h-100 text-center my-3"><img src={`http://localhost:3000${novedad?.imagen}`} width={"100%"} height={480} alt={novedad?.titulo} /></Col>
-                    <Col lg={12}><h4>{novedad?.descripcion}</h4></Col>
-                  </Row>
-                </Col>
-              ))}
+              {novedades?.map(novedad => {
+                let pathImg = null;
+                if(novedad?.imagen){
+                  const existeUploads = novedad?.imagen.includes('/uploads')
+                  if(!existeUploads){
+                    pathImg = `/${novedad?.imagen}`
+                  }else{
+                    pathImg = novedad?.imagen;
+                  }
+                }
+                return (
+                  <Col lg={12} className="shadow rounded-4 my-3 border" key={novedad.id}>
+                    <Row className="px-2 py-3">
+                      <Col md={8}><h4 style={{textDecoration: 'underline'}}>{novedad?.titulo}</h4></Col>
+                      <Col md={3}><h5>{moment(novedad?.fecha).format('DD-MM-YYYY')}</h5></Col>
+                      <Col md={1}>
+                        <DropdownBootstrap id={novedad.id} onEdit={onEdit} onDelete={onDelete}/>
+                      </Col>
+                      {novedad?.imagen && (
+                        <Col
+                          lg={12}
+                          className="w-100 h-100 text-center my-3"
+                        >
+                          <img
+                            src={`http://localhost:3000${pathImg}`}
+                            width={"100%"}
+                            height={350}
+                            alt={novedad?.titulo}
+                          />
+                        </Col>
+                      )}
+                      <Col lg={12}>
+                        <h6>{novedad?.descripcion}</h6>
+                      </Col>
+                    </Row>
+                  </Col>
+                )
+              })}
             </Row>
           </Col>
         </Row>

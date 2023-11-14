@@ -6,13 +6,13 @@ import { FaArrowLeft } from "react-icons/fa6";
 const PageContainer = ({ title, children, btnAdd, btnBack, btnDownloadList }) => {
   const navigate = useNavigate()
   return (
-        <Container fluid className="p-5 bg-light">
+        <Container fluid className="p-5 bg-light" style={{background: 'red', width: '100%', height: '92vh'}}>
           <Row>
             <Col md={6}>
               <Row>
                 {btnBack && (
                   <Col md={2}>
-                    <FaArrowLeft size={45} onClick={()=>navigate(btnBack)} />
+                    <FaArrowLeft size={45} onClick={()=>navigate(-1)} />
                   </Col>
                 )}
                 <Col md={10}>

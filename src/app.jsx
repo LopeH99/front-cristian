@@ -19,7 +19,7 @@ const App = () => {
         <Col md={2} className="bg-dark h-100-lg z-index-top" style={{ position: 'fixed', overflowY: 'auto' }}>
           <Navegation />
         </Col>
-        <Col md={{ span: 10, offset: 2 }} className="overflow-y-scroll" style={{height: '100vh', overflowX: 'hidden', overflowY: 'scroll' }}>
+        <Col md={{ span: 10, offset: 2 }} className="overflow-y-scroll" style={{height: '90vh', overflowX: 'hidden', overflowY: 'scroll' }}>
           <RouterProvider router={router} />
         </Col>
       </Row>    

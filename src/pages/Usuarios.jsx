@@ -28,26 +28,28 @@ const Usuarios = () => {
     
     const eliminarUsuario = async (id) => {
       if (window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
-      try {
+        try {
           await axios.delete(`http://localhost:3000/usuarios/${id}`, {
               headers: {
                   'Authorization': `${auth.token}`
               }
-          });
-          setToastMessage({
-          title: "Usuarios",
-          message: "Se elimino el usuario correctamente",
-          color:"danger"
-        })
-        setShowToast(true)
-        obtenerUsuarios()
-          // Aquí puedes manejar la respuesta después de eliminar el usuario.
-      } catch (error) {
-          console.error(`Hubo un error al eliminar el usuario: ${error}`);
+          }).then((resp)=>{
+            if(resp?.data?.ok){
+              setToastMessage({
+                title: "Usuarios",
+                message: "Se elimino el usuario correctamente",
+                color:"danger"
+              })
+              setShowToast(true)
+              obtenerUsuarios()
+            }
+          })
+        } catch (error) {
+            console.error(`Hubo un error al eliminar el usuario: ${error}`);
         }
-        }
+      }
     };
-    
+
     const columns = [
       {
           name: 'Nombre y apellido',
@@ -72,7 +74,7 @@ const Usuarios = () => {
       {
         name: 'Acciones',
         selector: row => (<>
-          <Button variant="warning" onClick={() => navigate(`/crear-usuario/${row.id}`)}>E</Button>
+          {/* <Button variant="warning" onClick={() => navigate(`/crear-usuario/${row.id}`)}>E</Button> */}
           <Button variant="danger" className="mx-2" onClick={() => eliminarUsuario(row.id)}>X</Button>
       </>),
     }
@@ -83,7 +85,7 @@ const Usuarios = () => {
       }, []);
 
   return (
-    <PageContainer title={"Usuarios"} btnAdd={'/crear-usuario'}>
+    <PageContainer title={"Usuarios"}>
           <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
           <Table columns={columns} data={usuarios} placeholder={"Filtrar por nombre"}/>          
     </PageContainer>
