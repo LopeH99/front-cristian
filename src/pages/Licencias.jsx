@@ -54,7 +54,6 @@ const Licencias = () => {
 
         obtenerLicencias();
       }, []);
-console.log(licencias)
   return (
     <PageContainer title={"Licencias"} btnAdd={'/crear-licencia'}>
         <TableLicences columns={columns} data={licencias} placeholder={"Filtrar por nombre"}/>

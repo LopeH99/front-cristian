@@ -10,6 +10,7 @@ const CrearIncidencia = () => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [date, setDate] = useState("");
+  const [descripcion, setDescripcion] = useState('');
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState({
@@ -23,7 +24,8 @@ const CrearIncidencia = () => {
       titulo: title,
       fecha: new Date(date).toISOString(),
       tipo: type,
-      incidencia: true
+      incidencia: true,
+      descripcion
     }
     await axios.post('http://localhost:3000/eventos', form, {
         headers: {
@@ -62,6 +64,10 @@ const CrearIncidencia = () => {
             value={type}
             onChange={(event) => setType(event.target.value)}
           />
+        </Form.Group>
+        <Form.Group className='mt-4' controlId="formDescripcion">
+          <Form.Label>Descripción</Form.Label>
+          <Form.Control as="textarea" rows={3} value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
         </Form.Group>
         <Form.Group>
           <Form.Label className="mt-3">Fecha</Form.Label>

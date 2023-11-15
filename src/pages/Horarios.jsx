@@ -28,7 +28,7 @@ const Horarios = () => {
     obtenerSugerencias();
   }, []);
   return (
-    <PageContainer title={"Horarios"} btnAdd={'/crear-horario'}>
+    <PageContainer title={"Horarios"}>
       <ScheduleTable />
     </PageContainer>
   )

@@ -37,15 +37,16 @@ const Incidencias = () => {
             <Col md={10} className="offset-1 my-2" key={index}>
               <Card>
                 <Card.Body>
-                  <h2>{incident.titulo}</h2>
+                  <h4>{incident.titulo}</h4>
                   <h5>{moment(incident.created_at).format('DD-MM-YYYY HH:mm:ss')}</h5>
                   <p>{incident.type}</p>
+                  <p>{incident?.descripcion}</p>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
-      </Container>  
+      </Container>
     </PageContainer>
   )
 }

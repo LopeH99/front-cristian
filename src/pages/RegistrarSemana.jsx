@@ -1,20 +1,49 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import useLogin from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
+import ToastBootstrap from "../components/Toasts";
+import axios from 'axios';
 
 const RegistrarSemana = () => {
     const [date, setDate] = useState("");
     const [menu, setMenu] = useState()
     const [ingredientes, setIngredientes] = useState()
-
-  const handleSubmit = () => {
-    console.log(menu)
+    const { auth } = useLogin();
+    const navigate = useNavigate();
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState({
+      title: "",
+      message: "",
+      color:""
+    });
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const form = {
+      fecha: new Date(date).toISOString(),
+      menu,
+      ingredientes
+    }
+    await axios.post('http://localhost:3000/menus', form, {
+        headers: {
+          'Authorization': `Bearer ${auth.token}`
+        }
+      }).then(()=>{
+        setToastMessage({
+          title: "Menu",
+          message: "Se creo el menu correctamente.",
+          color:"success"
+        })
+        setShowToast(true)
+        navigate('/comedor')
+      })
   }
 
-  return ( 
+  return (
     <Container>
-    <h2 className="text-center mt-5 mb-2">Registrar Semana</h2>      
-      
-  <Form onSubmit={handleSubmit} className="p-3">
+      <ToastBootstrap show={showToast} toggleShow={setShowToast} toastMessage={toastMessage} />
+      <h2 className="text-center mt-5 mb-2">Registrar Menu</h2>
+      <Form onSubmit={handleSubmit} className="p-3">
     <Form.Group controlId="title">
     <Form.Label>Dia</Form.Label>
     <Form.Control
@@ -49,8 +78,8 @@ const RegistrarSemana = () => {
         Enviar
         </Button>
     </div>  
-      </Form>  
-      </Container>    
+      </Form>
+    </Container>
   );
 };
 

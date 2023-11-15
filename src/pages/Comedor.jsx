@@ -27,7 +27,7 @@ const Comedor = () => {
   }, []);
   return (
     <PageContainer title={'Comedor'}>
-      <TableFood />
+      <TableFood menus={menus} />
     </PageContainer>
   )
 }

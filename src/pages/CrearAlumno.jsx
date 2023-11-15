@@ -88,7 +88,6 @@ const CrearAlumno = () => {
               navigate('/alumnos')
             }
           })
-            console.log(response.data);
       } catch (error) {
         console.error(`Hubo un error al crear el usuario: ${error}`);
       }
@@ -115,7 +114,6 @@ const CrearAlumno = () => {
               navigate('/alumnos')
             }
           })
-            console.log(response.data);
       } catch (error) {
         console.error(`Hubo un error al crear el usuario: ${error}`);
       }

@@ -120,7 +120,7 @@ const router = createBrowserRouter([
       element: <Comedor />,
     },
     {
-      path: "/registrar-semana",
+      path: "/registrar-menu",
       element: <RegistrarSemana />,
     },
   ]);
